@@ -1,7 +1,8 @@
 import pygame 
 import os 
-import sys 
-import time 
+import numpy 
+import cv2 
+
 
 def main():
 
@@ -66,7 +67,7 @@ def findFiles(directory):
     try:
         for root, dirs, files in os.walk(directory):
             for file in files:
-                if file.endswith('.jpg') or file.endswith('.png'):
+                if file.endswith('.jpg') or file.endswith('.png') or file.endswith('.jpeg') or file.endswith('gif') or file.endswith('.png') or file.endswith('.mov') or file.endswith('.mp4'):
                     mediaFiles.append(os.path.join(root, file))
     except:
         return False
