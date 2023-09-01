@@ -8,7 +8,6 @@ def main():
     pygame.init()
     info = pygame.display.Info()
     width, height = info.current_w, info.current_h
-    #width, height = 1920, 1080
     window = pygame.display.set_mode((width, height)) #, pygame.FULLSCREEN)
     
     font = pygame.font.Font(None, 74)
@@ -18,7 +17,6 @@ def main():
               
     # Main loop
     while True:
-        
         driveExists, imageFiles, videoFiles = getUSB()
          
         for event in pygame.event.get():
@@ -45,7 +43,7 @@ def main():
             pygame.display.flip()
             displayVideos(videoFiles, window, width, height, currentVideo)
 
-        pygame.time.delay(100)
+        pygame.time.delay(10)
 
 def getUSB():
     imageFiles, videoFiles = [], []
@@ -54,7 +52,9 @@ def getUSB():
     driveExists = False 
 
     # below is for windows 
-    '''for driveLetter in usbPath:
+    '''
+    usbPath = ["D", "E", "F"]
+    for driveLetter in usbPath:
         if os.path.exists(driveLetter + ":\\"):
             driveExists = True
             imageFiles, videoFiles = findFiles(driveLetter + ":\\")
@@ -65,6 +65,23 @@ def getUSB():
             else:
                 print(f"No media files were found in {driveLetter}")
             break '''
+    
+    # below is for ubuntu linux
+    '''
+    username = "" # get the ubuntu user and keep volumes (like Mac) 
+    if usbDriveName in volumes:
+        username = os.getlogin()  # Get the username
+        usbPath = f'/media/{username}/{usbDriveName}'
+        driveExists = True
+        imageFiles, videoFiles = findFiles(usbPath)
+        
+        if not imageFiles and not videoFiles:
+            print(f'No files found on USB - {usbPath}')
+    else:
+        print('Cannot find USB drive :(')'''
+        
+        
+    # below is for mac         
     if usbDriveName in volumes: 
         usbPath = f'/Volumes/{usbDriveName}'
         driveExists = True 
